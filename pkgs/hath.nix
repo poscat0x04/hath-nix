@@ -1,4 +1,4 @@
-{stdenv, jre_headless, unzip, gnumake}:
+{stdenv, lib, jre_headless, unzip, gnumake}:
 
 stdenv.mkDerivation {
   pname = "hath";
@@ -24,9 +24,9 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/lib/hath
     cp -v build/HentaiAtHome.jar $out/lib/hath/hath.jar
 
-    cat > $out/bin/hath << EOF 
+    cat > $out/bin/hath << EOF
     #!/bin/sh
-    exec ${jre_headless}/bin/java -Xms16m -Xmx512m -jar $out/lib/hath/hath.jar \$@ 
+    exec ${jre_headless}/bin/java -Xms16m -Xmx512m -jar $out/lib/hath/hath.jar \$@
     EOF
 
     chmod +x $out/bin/hath
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     jre_headless
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Hentai@Home server";
     licenses = licenses.gpl3;
     platforms = platforms.unix;

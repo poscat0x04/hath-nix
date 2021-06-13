@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.services.hath;
   homeDir = "/var/lib/hath";
-  credential = pkgs.writeText "client_login" "${builtins.toString cfg.id}-${cfg.key}"; 
+  credential = pkgs.writeText "client_login" "${builtins.toString cfg.id}-${cfg.key}";
 in
 {
   options = {
@@ -57,9 +57,10 @@ in
   config = mkIf cfg.enable {
     users.users = {
       hath = {
+        isSystemUser = true;
         group = "hath";
         description = "Hentai@Home user";
-        home = cfg.home; 
+        home = cfg.home;
         createHome = true;
       };
     };
